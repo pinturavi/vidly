@@ -1,0 +1,6 @@
+{
+    "name":" Vildy prodcution app",
+    "mail":{
+        "host":"prod-mail-server"
+    }
+}

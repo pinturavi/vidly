@@ -1,0 +1,6 @@
+{
+    "name":" Vildy development app",
+    "mail":{
+        "host":"dev-mail-server"
+    }
+}
