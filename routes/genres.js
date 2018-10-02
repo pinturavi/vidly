@@ -1,5 +1,6 @@
 const express = require('express')
-const router = expresss.Router()
+const Joi = require('joi')
+const router = express.Router()
 
 const genres = [
     {id:1, name:'action'},
