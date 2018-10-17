@@ -21,4 +21,15 @@ instead mongodb package we are using mongoose
 
 Authentication
 
+Automated Testing 
+    1. Unit testing 
+    2. Integration Testing
+    3. End to end Testing
 
+FrameWorks
+    1. Jasmine
+    2. MOchan
+        Chai, Sinon
+    3. Jest
+
+    
