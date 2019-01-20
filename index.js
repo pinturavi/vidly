@@ -1,37 +1,14 @@
-const mongoose = requrie('mongoose')
-const logger = require('./middleware/logger')
-const authenticator = require('./middleware/authenticator')
-const genres = require('./routes/genres')
-const home = require('./routes/welcome')
+const winston = require('winston');
+const express = require('express');
+const app = express();
 
-const debug = require('debug')('app:startup')
-const express = require('express')
-const helmet = require('helmet')
-const morgan = require('morgan')
-const config = require('config')
-const app = express()
+require('./startup/logging')();
+require('./startup/routes')(app);
+require('./startup/db')();
+require('./startup/config')();
+require('./startup/validation')();
 
-mongoose.connect('mongodb://localhose/vidly', { useNewUrlParser: true })
-    .then(() => console.log('connected to mongo db.'))
-    .catch(error => console.log(error.message))
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));
 
-app.set('view engine', 'pug')
-//this is default setting
-app.set('views', './views')
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
-app.use(helmet())
-app.use(logger)
-app.use(authenticator)
-app.use('/api/genres', genres)
-app.use('/', welcome)
-
-if ('development' === app.get('env')) {
-    app.use(morgan('tiny'))
-    debug('morgan enabled in development mode')
-}
-
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`server started and listening at the port number ${PORT}`))
+module.exports = server;
